@@ -1,9 +1,9 @@
 FROM nginx:alpine
 
-# Overwrite the default Nginx configuration with your local file
+# Overwrite the default Nginx configuration with your local file -
 COPY ./default.conf /etc/nginx/conf.d/default.conf
 
-# Copy your newly built dist folder into the exact subdirectory path
+# Copy your newly built dist folder into the exact subdirectory path -
 COPY ./dist /usr/share/nginx/html/coxevac
 
 # Standardize permissions inside the image
