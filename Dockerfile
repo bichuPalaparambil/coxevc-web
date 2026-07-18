@@ -3,7 +3,7 @@ FROM nginx:alpine
 # Remove default configuration completely
 RUN rm -f /etc/nginx/conf.d/default.conf
 
-# Use a clean cat EOF block to create the exact config file
+# Create the custom configuration file
 RUN cat <<'EOF' > /etc/nginx/conf.d/default.conf
 server {
     listen 80;
@@ -27,6 +27,13 @@ EOF
 
 # Copy your pre-built dist folder into the exact subdirectory path
 COPY ./dist /usr/share/nginx/html/coxevac
+
+# ⬇️ FIX PERMISSIONS INSIDE THE IMAGE ⬇️
+# Ensure the nginx user owns the files
+RUN chown -R nginx:nginx /usr/share/nginx/html
+# Set directory permissions to 755 (read/execute) and files to 644 (read)
+RUN find /usr/share/nginx/html -type d -exec chmod 755 {} \;
+RUN find /usr/share/nginx/html -type f -exec chmod 644 {} \;
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
