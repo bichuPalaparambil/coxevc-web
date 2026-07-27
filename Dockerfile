@@ -4,7 +4,7 @@ FROM nginx:alpine
 COPY ./default.conf /etc/nginx/conf.d/default.conf
 
 # Copy your newly built dist folder into the exact subdirectory path -
-COPY ./dist /usr/share/nginx/html/coxevac
+COPY ./dist /usr/share/nginx/html/web
 
 # Standardize permissions inside the image
 RUN chown -R nginx:nginx /usr/share/nginx/html && \
